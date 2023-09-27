@@ -6,6 +6,11 @@ namespace PROG260_Week3
     {
         static void Main(string[] args)
         {
+            Game game = new Game();
+
+            game.Start();
+
+            /*
             Console.WriteLine("Hello, World!");
             List<Actor> Actors = new List<Actor>();
 
@@ -40,6 +45,7 @@ namespace PROG260_Week3
             {
                 writer.WriteLine(actor.ToString());
             }
+            */
 
         }
     }
