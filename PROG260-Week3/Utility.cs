@@ -68,6 +68,42 @@ namespace PROG260_Week3
 
             return Actors;
         }
+
+        public static void WriteGameResultsToFile<T>(List<DoublyNode<T>> Results, string file)
+        {
+            //FileStream stream = new FileStream($"{UseableBaseDir}\\{file}", FileMode.OpenOrCreate);
+            StreamWriter writer = new StreamWriter(stream);
+
+            string header = "/ Head | Node | Tail -- Node Data (Player , Opponent, Total Rounds)";
+            writer.WriteLine(header);
+
+            Results.ForEach(result => writer.WriteLine(result));
+
+            writer.Close();
+            //stream.Close();
+        }
+
+        public static List<string> ReadGameResultsFromFile(string file)
+        {
+            List<string> Results = new List<string>();
+
+            StreamReader reader = new StreamReader($"{UseableBaseDir}\\{file}");
+
+            var line = reader.ReadLine();
+
+            if (line[0] == '/') line = reader.ReadLine();
+
+            while (line != null)
+            {
+                Results.Add(reader.ReadLine());
+            }
+
+            reader.Close();
+            reader.Dispose();
+
+            return Results;
+        }
+
         #endregion
 
         #region Console

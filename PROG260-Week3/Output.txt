@@ -1,0 +1,4 @@
+/ Head | Node | Tail -- Node Data (Player , Opponent, Total Rounds)
+Null Alex 45 30 50 15 | Knight 0 20 45 23 | 3 Alex 45 30 50 15 | Dwarf 0 10 42 27 | 3
+Alex 45 30 50 15 | Knight 0 20 45 23 | 3 Alex 45 30 50 15 | Dwarf 0 10 42 27 | 3 Alex 45 30 50 15 | Mage 0 100 40 11 | 2
+Alex 45 30 50 15 | Dwarf 0 10 42 27 | 3 Alex 45 30 50 15 | Mage 0 100 40 11 | 2 Null

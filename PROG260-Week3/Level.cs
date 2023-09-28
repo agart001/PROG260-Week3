@@ -92,22 +92,6 @@ namespace PROG260_Week3
             ClearConsole();
             
             ConsoleSpacer();
-
-            /*
-            bool[] status = new bool[] { Host.Player.Alive, Monster.Alive};
-
-            switch(BoolArrayToNumSeq(status))
-            {
-                case 11: Print($"{Host.Player.Name} submitted to the {Monster.Name}!"); break;
-                case 10:
-                    Completed = true;
-                    Print($"{Host.Player.Name} defeated the {Monster.Name}!");
-                    break;
-                case 01: Print($"{Host.Player.Name} was slain by the {Monster.Name}!");  break;
-
-            }
-            */
-
             if(Host.Player.Alive == true && Monster.Alive == true) Print($"{Host.Player.Name} submitted to the {Monster.Name}!");
 
             if (Monster.Alive == false)
@@ -117,11 +101,25 @@ namespace PROG260_Week3
             }
 
             if(Host.Player.Alive == false) Print($"{Host.Player.Name} was slain by the {Monster.Name}!");
-
             ConsoleSpacer();
 
             if(BoolQuestion("Continue back to the main menu?", "y", "n"))
             {
+                CombatResults Results = new CombatResults(Host.Player.Clone(), Monster.Clone(), Round);
+                
+                
+                switch (Host.ResultsIndex)
+                {
+                    case 0: 
+                        Host.GameResults.Add(new DoublyNode<CombatResults>(Results, null)); 
+                        break;
+                    default: 
+                        Host.GameResults.Add(new DoublyNode<CombatResults>(Results, Host.GameResults[Host.ResultsIndex - 1])); 
+                        break;
+                }
+                
+                Host.IncrementResultsIndex();
+                
                 Host.Player.ResetStatus();
                 Host.Loop();
             }

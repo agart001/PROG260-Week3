@@ -11,16 +11,22 @@ namespace PROG260_Week3
     public class Game
     {
         public List<Level> Levels { get; protected set; }
-
         public int LevelIndex { get; protected set; }
+
+        public List<DoublyNode<CombatResults>> GameResults = new List<DoublyNode<CombatResults>>();
+        public int ResultsIndex { get; protected set;}
+
+        public int MaxNodeIndex { get; protected set;}
 
         public Actor Player { get; protected set; }
 
         public Game() 
         {
             Levels = LoadLevels();
-
             LevelIndex = 0;
+
+            ResultsIndex = 0;
+            MaxNodeIndex = Levels.Count() - 1;
         }
 
         public List<Level> LoadLevels()
@@ -35,8 +41,12 @@ namespace PROG260_Week3
 
         }
 
+        public void IncrementResultsIndex() => ResultsIndex++;
+
         public void Start()
         {
+            ClearConsole();
+
             ConsoleSpacer();
             Print("Welcome to IO Dungeon Crawler!");
             ConsoleSpacer();
@@ -48,7 +58,16 @@ namespace PROG260_Week3
                 ConsoleSpacer();
                 Print("Enter your player's name: ", false);
                 string name = Console.ReadLine();
-                Player = new Actor(name, 90, 30, 40, 25);
+
+                ConsoleSpacer();
+                int choice = Question("What is your class?", new string[] {"Knight", "Mage", "Rogue"});
+
+                switch (choice)
+                {
+                    case 0: Player = new Actor(name, 170, 20, 45, 20); break;
+                    case 1: Player = new Actor(name, 120, 80, 25, 10); break;
+                    case 2: Player = new Actor(name, 45, 30, 50, 15); break;
+                }
 
                 Loop();
             }
@@ -64,39 +83,44 @@ namespace PROG260_Week3
 
             if(Levels.All(level => level.Completed == true)) Stop();
 
-            /*
-            Levels.ForEach(level =>
-            {
-                ConsoleSpacer();
-                ConsoleSpacer();
-                Print($"{level.Name}");
-                ConsoleSpacer();
-                Print("| Name HP MP AP DEF |");
-                Print($"| {level.Monster} |");
-                ConsoleSpacer();
-                Print($"Completed : {level.Completed}");
-                ConsoleSpacer();
-                ConsoleSpacer();
-                Print(Environment.NewLine, false);
-            });
-            */
+            List<Level> UncompletedLevels = Levels.FindAll(level => level.Completed == false);
 
             List<string> answers = new List<string>();
-            Levels.ForEach(level =>
-            {
-                if (level.Completed != true)
-                {
-                    answers.Add(level.Name);
-                }
-            });
+            UncompletedLevels.ForEach(level => answers.Add(level.Name));
 
             LevelIndex = Question("Which level will you Challenge?: ", answers.ToArray());
 
-            Levels[LevelIndex].Start();
+            UncompletedLevels[LevelIndex].Start();
         }
 
         public void Stop()
         {
+            ClearConsole();
+
+            ConsoleSpacer();
+            Print("Congradulation!!! You beat I/O Dungeon!!!");
+            ConsoleSpacer();
+            WriteGameResultsToFile(GameResults, "Output.txt");
+            Print("Your results have been saved!!!");
+            ConsoleSpacer();
+
+            
+            {
+                ClearConsole();
+
+                List<string> Results = ReadGameResultsFromFile("Output.txt");
+
+                Results.ForEach(result => 
+                {
+                    ConsoleSpacer();
+                    Print(result);
+                });
+                ConsoleSpacer();
+
+                Console.ReadLine();
+
+            }
+            else{ Exit(); }
 
         }
 

@@ -72,9 +72,8 @@ namespace PROG260_Week3
             DEF = Stats[3];
         }
 
-        public override string ToString()
-        {
-            return $"{Name} {HP} {MP} {AP} {DEF}";
-        }
+        public Actor Clone() => (Actor)MemberwiseClone();
+
+        public override string ToString() => $"{Name} {HP} {MP} {AP} {DEF}";
     }
 }
