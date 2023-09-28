@@ -90,7 +90,9 @@ namespace PROG260_Week3
 
             while (line != null)
             {
-                Results.Add(reader.ReadLine());
+                Results.Add(line);
+
+                line = reader.ReadLine();
             }
 
             reader.Close();
@@ -98,6 +100,8 @@ namespace PROG260_Week3
 
             return Results;
         }
+
+        public static void ClearFile(string file) => File.WriteAllText($"{UseableBaseDir}\\{file}", string.Empty);
 
         #endregion
 

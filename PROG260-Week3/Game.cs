@@ -22,6 +22,8 @@ namespace PROG260_Week3
 
         public Game() 
         {
+            ClearFile("Output.txt");
+
             Levels = LoadLevels();
             LevelIndex = 0;
 
