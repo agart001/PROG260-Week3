@@ -104,13 +104,13 @@ namespace PROG260_Week3
             Print("Your results have been saved!!!");
             ConsoleSpacer();
 
-            
+            if (BoolQuestion("Print the saved results?", "y", "n"))
             {
                 ClearConsole();
 
-                List<string> Results = ReadGameResultsFromFile("Output.txt");
+                List<string> results = ReadGameResultsFromFile("Output.txt");
 
-                Results.ForEach(result => 
+                results.ForEach(result =>
                 {
                     ConsoleSpacer();
                     Print(result);
@@ -118,10 +118,9 @@ namespace PROG260_Week3
                 ConsoleSpacer();
 
                 Console.ReadLine();
-
             }
-            else{ Exit(); }
-
+            else { Exit();}
+            
         }
 
         public void Exit()

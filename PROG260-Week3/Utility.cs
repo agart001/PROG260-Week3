@@ -44,15 +44,10 @@ namespace PROG260_Week3
             List<Actor> Actors = new List<Actor>();
 
             StreamReader reader = new StreamReader($"{UseableBaseDir}\\{file}");
-            string header = "";
 
             var line = reader.ReadLine();
 
-            if (line[0] == '/')
-            {
-                header = line;
-                line = reader.ReadLine();
-            }
+            if (line[0] == '/') line = reader.ReadLine();
 
             while (line != null)
             {
@@ -71,7 +66,7 @@ namespace PROG260_Week3
 
         public static void WriteGameResultsToFile<T>(List<DoublyNode<T>> Results, string file)
         {
-            //FileStream stream = new FileStream($"{UseableBaseDir}\\{file}", FileMode.OpenOrCreate);
+            FileStream stream = new FileStream($"{UseableBaseDir}\\{file}", FileMode.OpenOrCreate);
             StreamWriter writer = new StreamWriter(stream);
 
             string header = "/ Head | Node | Tail -- Node Data (Player , Opponent, Total Rounds)";
@@ -80,7 +75,7 @@ namespace PROG260_Week3
             Results.ForEach(result => writer.WriteLine(result));
 
             writer.Close();
-            //stream.Close();
+            stream.Close();
         }
 
         public static List<string> ReadGameResultsFromFile(string file)
