@@ -35,7 +35,7 @@ namespace PROG260_Week3
             if(Previous != null) PrevData = Previous.Data.ToString();
             if(Next != null) NextData = Next.Data.ToString();
 
-            return $"{PrevData} {Data} {NextData}";
+            return $"{PrevData} -> {Data} -> {NextData}";
         }
     }
 }
